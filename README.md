@@ -74,7 +74,9 @@ main = launchAff_ $ runSpec [ consoleReporter ] do
 
 ```
 
-There are two cool properties of this generic method of binding to JS object:
+There are three cool properties of this generic method of binding to JS object:
+
+  * `JSObject` is a data type provided by the lib and there is nothing special about it. You can provide your own wrappers around the "API row" if you want to encode some additional invariant on this level - all helpers are polymorphic on this part (we use just a parameter in the lib like this `obj` in `runEffectMth1 :: ... => Proxy s -> obj mth -> a1 -> Effect b`).
 
   * whenever we feed the "method name proxy" to the one of `runEffectMth*` helpers there is no additional overhead - we get back a function which is not dependent on any type class dict and is only passing the rest of the arguments to the uncurried object method by using standard `runEffectFn*` under the hood.
 
