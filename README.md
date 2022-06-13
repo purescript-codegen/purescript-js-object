@@ -81,22 +81,22 @@ There are two cool properties of this generic method of binding to JS object:
   * we can reuse binding functions to different objects as long as they share a particular method signature - we can even think about parts of the row as parts of TS interface and about the particular object as an implementation of it. The above example could be written as:
 
   ```purescript
-  type IncreaseRow r = ( increase :: EffectMth0 Unit | r)
+  type IncreaseInterface r = ( increase :: EffectMth0 Unit | r)
 
-  type IncreaseByRow r = (increaseBy :: EffectMth1 Int Unit | r)
+  type DecreaseInterface r = (decrease :: EffectMth1 Int Unit | r)
 
-  type ValueRow r = (value :: EffectProp Int | r)
+  type ValueInterface r = (value :: EffectProp Int | r)
 
-  increase :: forall r. JSObject (IncreaseRow r) -> Effect Unit
+  increase :: forall r. JSObject (IncreaseInterface r) -> Effect Unit
   increase = runEffectMth0 (Proxy :: Proxy "increase")
 
-  increaseBy :: forall r. JSObject (IncreaseByRow r) -> Int -> Effect Unit
-  increaseBy = runEffectMth1 (Proxy :: Proxy "increaseBy")
+  decrease :: forall r. JSObject (DecreaseInterface r) -> Effect Unit
+  decrease = runEffectMth0 (Proxy :: Proxy "decrease")
 
-  value :: forall r. JSObject (ValueRow r) -> Effect Int
+  value :: forall r. JSObject (ValueInterface r) -> Effect Int
   value = runEffectProp (Proxy :: Proxy "value")
 
-  type Counter = JSObject (IncreaseRow + IncreaseByRow + ValueRow + ())
+  type Counter = JSObject (IncreaseInterface + DecreaseInterface + ValueInterface + ())
 
   ```
 
