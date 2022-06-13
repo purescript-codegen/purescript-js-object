@@ -4,7 +4,7 @@ Access js object methods and properties without writing JS bindings.
 
 ## The Problem
 
-In PureScript we usually write FFI to object methods by implementing dedicated functions on both sides. It seems that without sacrificing the performance of a call we can provide generic functions to work with properties and methods of JS object using "uncurried" approach similar to `Effect.Uncurried` (from `purescript-effect`).
+In PureScript we usually write FFI to object methods by implementing dedicated functions on both sides. It seems we can provide generic function without sacrificing the performance to bind to properties and methods of a JS object using "uncurried" approach similar to `Effect.Uncurried` (from `purescript-effect`).
 
 ## Usage
 
