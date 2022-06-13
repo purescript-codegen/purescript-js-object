@@ -43,7 +43,7 @@ import Test.Spec.Runner (runSpec)
 import Type.Prelude (Proxy(..))
 import Type.Row (type (+))
 
-type Counter = JSObject (increase :: EffectMth0 Unit, decrease :: EffectMth0, value :: EffectProp Int)
+type Counter = JSObject (increase :: EffectMth0 Unit, decrease :: EffectMth0 Unit, value :: EffectProp Int)
 
 foreign import counter :: Effect Counter
 
@@ -83,7 +83,7 @@ There are two cool properties of this generic method of binding to JS object:
   ```purescript
   type IncreaseInterface r = ( increase :: EffectMth0 Unit | r)
 
-  type DecreaseInterface r = (decrease :: EffectMth1 Int Unit | r)
+  type DecreaseInterface r = (decrease :: EffectMth0 Unit | r)
 
   type ValueInterface r = (value :: EffectProp Int | r)
 
