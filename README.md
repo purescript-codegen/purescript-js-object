@@ -4,7 +4,7 @@ Access js object methods and properties without writing JS bindings.
 
 ## The Problem
 
-In PureScript we usually write FFI to object methods by implementing dedicated functions on both sides. It seems that we can provide set of generic helpers which without sacrificing the performance are able to bind to properties and methods of a JS object (by using "uncurried" approach similar to `Effect.Uncurried` from `purescript-effect` under the hood).
+In PureScript we usually write FFI to object methods by implementing dedicated functions on both sides. It seems that we can provide set of generic helpers which without sacrificing the performance which are able to bind to properties and methods of a JS object (by using "uncurried" approach similar to `Effect.Uncurried` from `purescript-effect` under the hood).
 
 ## Usage
 
@@ -74,13 +74,11 @@ main = launchAff_ $ runSpec [ consoleReporter ] do
 
 ```
 
-There are three cool properties of this generic method of binding to JS object:
-
-  * `JSObject` is a data type provided by the lib and there is nothing special about it. You can provide your own wrappers around the "API row" if you want to encode some additional invariant on this level - all helpers are polymorphic on this part (we use just a parameter in the lib like this `obj` in `runEffectMth1 :: ... => Proxy s -> obj mth -> a1 -> Effect b`).
+There are two nice properties of this generic method of binding to JS object:
 
   * whenever we feed the "method name proxy" to the one of `runEffectMth*` helpers there is no additional overhead - we get back a function which is not dependent on any type class dict and is only passing the rest of the arguments to the uncurried object method by using standard `runEffectFn*` under the hood.
 
-  * we can reuse binding functions to different objects as long as they share a particular method signature - we can even think about parts of the row as parts of TS interface and about the particular object as an implementation of it. The above example could be written as:
+  * we can use the same binding functions to different objects as long as they share a particular method signature / interface. We can think about the row as the TS interface and about the particular object as an instance which implements it. The above example could be written as:
 
   ```purescript
   type IncreaseInterface r = ( increase :: EffectMth0 Unit | r)
@@ -102,3 +100,8 @@ There are three cool properties of this generic method of binding to JS object:
 
   ```
 
+## Testing
+
+```shell
+$ spago --config devel.dhall test
+```
