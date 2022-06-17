@@ -1,6 +1,7 @@
 # purescript-js-object
 
-Access js object methods and properties without writing JS bindings.
+Access js object methods and properties without writing JS bindings... ...or just GENERATE it (without any codegen) from the type.
+
 
 ## The Problem
 
@@ -99,6 +100,7 @@ There are two nice properties of this generic method of binding to JS object:
   type Counter = JSObject (IncreaseInterface + DecreaseInterface + ValueInterface + ())
 
   ```
+
 
 ## Testing
 

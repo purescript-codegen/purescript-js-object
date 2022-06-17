@@ -12,13 +12,11 @@
 
 module JS.Object where
 
-
 import Data.Symbol (class IsSymbol, reflectSymbol)
 import Effect (Effect)
 import Effect.Uncurried (EffectFn2, EffectFn3, EffectFn4, EffectFn5, EffectFn6, EffectFn7, EffectFn8, EffectFn9, runEffectFn2, runEffectFn3, runEffectFn4, runEffectFn5, runEffectFn6, runEffectFn7, runEffectFn8, runEffectFn9)
-import Prim.Row as Row
+import Prim.Row (class Cons) as Row
 import Type.Prelude (Proxy)
-
 
 -- | This is predefined representation for JS object which could be
 -- | indexed with methods and used with functions from this modules.
@@ -61,7 +59,6 @@ runEffectMth0 m = do
     m' = reflectSymbol m
   runEffectFn2 unsafeRunEffectMth0 m'
 
-
 foreign import data EffectMth1 :: Type -> Type -> Type
 
 foreign import unsafeRunEffectMth1 :: forall a1 b obj. EffectFn3 String obj a1 b
@@ -71,7 +68,6 @@ runEffectMth1 m = do
   let
     m' = reflectSymbol m
   runEffectFn3 unsafeRunEffectMth1 m'
-
 
 foreign import data EffectMth2 :: Type -> Type -> Type -> Type
 
@@ -123,7 +119,6 @@ runEffectMth6 m = do
     m' = reflectSymbol m
   runEffectFn8 unsafeRunEffectMth6 m'
 
-
 foreign import data EffectMth7 :: Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type -> Type
 
 foreign import unsafeRunEffectMth7 :: forall a1 a2 a3 a4 a5 a6 a7 b obj. EffectFn9 String obj a1 a2 a3 a4 a5 a6 a7 b
@@ -133,4 +128,3 @@ runEffectMth7 m = do
   let
     m' = reflectSymbol m
   runEffectFn9 unsafeRunEffectMth7 m'
-
