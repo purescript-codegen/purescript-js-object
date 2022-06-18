@@ -1,6 +1,6 @@
 # purescript-js-object
 
-Access js object methods and properties without writing JS bindings... ...or just GENERATE it (without any codegen) from the type.
+Access js object methods and properties without writing JS bindings... ...or just generate mutable JS object FFI (without any codegen) from the type.
 
 
 ## The Problem
