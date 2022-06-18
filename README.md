@@ -22,6 +22,8 @@ exports.counter = (function () {
   Counter.prototype.decrease = function () {
     this.value--;
   };
+  // I'm working to cover constructors as well soon.
+  // At the moment we need to expose a function ourselves.
   return function () {
     return new Counter();
   };
@@ -33,10 +35,12 @@ Now we should be able to bind to this interface using generic helpers provided b
 ```purescript
 import Prelude
 
+import Data.Newtype (class Newtype)
 import Effect (Effect)
 import Effect.Aff (launchAff_)
 import Effect.Class (liftEffect)
 import JS.Object (EffectMth0, EffectMth1, EffectProp, JSObject, runEffectMth0, runEffectMth1, runEffectProp)
+import JS.Object.Generic (mkFFI, mkNewtypedFFI)
 import Test.Spec (describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import Test.Spec.Reporter (consoleReporter)
@@ -48,6 +52,42 @@ type Counter = JSObject (increase :: EffectMth0 Unit, decrease :: EffectMth0 Uni
 
 foreign import counter :: Effect Counter
 
+
+-- You can generate this FFI record during the compilation time.
+-- There is no runtime footprint over the manual binding.
+-- Type signature is derived automatically but because we don't
+-- use newtype... yet it would be fully expanded by default.
+_Counter ::
+  { increase :: Counter -> Effect Unit
+  , decrease :: Counter -> Effect Unit
+  , value :: Effect Int
+  }
+_Counter = mkFFI (Proxy :: Proxy Counter)
+
+
+-- If you want you can use newtypes as well.
+-- Here is a binding for hypothetical Person `JSObject`.
+newtype Person = Person
+  ( JSObject
+      ( firstName :: EffectProp String
+      , setFirstName :: EffectMth1 String Unit
+      , lastName :: EffectProp String
+      , setLastName :: EffectMth1 String Unit
+      )
+  )
+
+derive instance Newtype Person _
+
+_Person ::
+  { firstName :: Person -> Effect String
+  , lastName :: Person -> Effect String
+  , setFirstName :: Person -> String -> Effect Unit
+  , setLastName :: Person -> String -> Effect Unit
+  }
+_Person = mkNewtypedFFI (Proxy :: Proxy Person)
+
+
+-- You can also use lower level functions to construct bindings yourself.
 increase :: Counter -> Effect Unit
 increase = runEffectMth0 (Proxy :: Proxy "increase")
 
