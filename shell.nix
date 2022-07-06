@@ -1,1 +1,0 @@
-/home/paluh/.config/purescript/shell-0_14_5.nix
