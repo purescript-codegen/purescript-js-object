@@ -20,9 +20,6 @@ import Type.Prelude (Proxy)
 
 -- | This is predefined representation for JS object which could be
 -- | indexed with methods and used with functions from this modules.
--- |
--- | All the helpers are polymorphic over the actual "object" type
--- | so you are not forced to use it.
 foreign import data JSObject :: Row Type -> Type
 
 foreign import data EffectProp :: Type -> Type
