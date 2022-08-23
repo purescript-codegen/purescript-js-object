@@ -1,4 +1,4 @@
-exports.counter = (function () {
+export const counter = (function () {
   let Counter = function () {
     this.value = 0;
   };

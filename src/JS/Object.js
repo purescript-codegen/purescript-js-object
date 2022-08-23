@@ -1,28 +1,28 @@
-exports.unsafeRunEffectProp = function (mth, obj) {
+export function unsafeRunEffectProp (mth, obj) {
   return obj[mth];
 };
 
-exports.unsafeRunEffectMth0 = function (mth, obj) {
+export function unsafeRunEffectMth0 (mth, obj) {
   return obj[mth]();
 };
 
-exports.unsafeRunEffectMth1 = function (mth, obj, arg) {
+export function unsafeRunEffectMth1 (mth, obj, arg) {
   return obj[mth](arg);
 };
 
-exports.unsafeRunEffectMth2 = function (mth, obj, arg1, arg2) {
+export function unsafeRunEffectMth2 (mth, obj, arg1, arg2) {
   return obj[mth](arg1, arg2);
 };
 
-exports.unsafeRunEffectMth3 = function (mth, obj, arg1, arg2, arg3) {
+export function unsafeRunEffectMth3 (mth, obj, arg1, arg2, arg3) {
   return obj[mth](arg1, arg2, arg3);
 };
 
-exports.unsafeRunEffectMth4 = function (mth, obj, arg1, arg2, arg3, arg4) {
+export function unsafeRunEffectMth4 (mth, obj, arg1, arg2, arg3, arg4) {
   return obj[mth](arg1, arg2, arg3, arg4);
 };
 
-exports.unsafeRunEffectMth5 = function (
+export function unsafeRunEffectMth5 (
   mth,
   obj,
   arg1,
@@ -34,7 +34,7 @@ exports.unsafeRunEffectMth5 = function (
   return obj[mth](arg1, arg2, arg3, arg4, arg5);
 };
 
-exports.unsafeRunEffectMth6 = function (
+export function unsafeRunEffectMth6 (
   mth,
   obj,
   arg1,
@@ -47,7 +47,7 @@ exports.unsafeRunEffectMth6 = function (
   return obj[mth](arg1, arg2, arg3, arg4, arg5, arg6);
 };
 
-exports.unsafeRunEffectMth7 = function (
+export function unsafeRunEffectMth7 (
   mth,
   obj,
   arg1,
