@@ -1,7 +1,23 @@
 { name = "js-object"
 , dependencies =
-      [ "aff", "effect", "heterogeneous", "prelude", "typelevel-prelude", "contravariant", "newtype", "record", "unsafe-coerce" ]
-    # [ "console", "psci-support", "spec" ]
+  [ "aff"
+  , "contravariant"
+  , "effect"
+  , "foreign"
+  , "foreign-object"
+  , "functions"
+  , "heterogeneous"
+  , "js-unsafe-stringify"
+  , "newtype"
+  , "nullable"
+  , "partial"
+  , "prelude"
+  , "record"
+  , "spec"
+  , "typelevel-prelude"
+  , "unsafe-coerce"
+  , "unsafe-reference"
+  ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]
 }

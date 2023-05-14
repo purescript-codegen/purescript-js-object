@@ -12,3 +12,5 @@ export const counter = (function () {
     return new Counter();
   };
 })();
+
+export { counter };

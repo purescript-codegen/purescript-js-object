@@ -8,9 +8,9 @@ import Effect (Effect)
 import Effect.Uncurried (runEffectFn2, runEffectFn3, runEffectFn4, runEffectFn5)
 import Heterogeneous.Folding (class FoldingWithIndex, class HFoldlWithIndex, hfoldlWithIndex)
 import JS.Object (EffectMth0, EffectMth1, EffectMth2, EffectMth3, EffectProp, JSObject, unsafeRunEffectMth0, unsafeRunEffectMth1, unsafeRunEffectMth2, unsafeRunEffectMth3, unsafeRunEffectProp)
-import Prim.Row (class Cons, class Lacks) as Row
-import Prim.RowList (class RowToList) as RL
-import Record (insert) as Record
+import Prim.Row as Row
+import Prim.RowList as RL
+import Record as Record
 import Type.Prelude (class IsSymbol, Proxy(..))
 
 data MkFFIStep :: forall k. k -> Type
@@ -65,6 +65,15 @@ mkFFI
   -> { | rout }
 mkFFI _ = hfoldlWithIndex (MkFFIStep :: MkFFIStep (JSObject mths)) {} (Proxy :: Proxy mthsL)
 
+mkNewtypedFFI
+  :: forall mths mthsL rout t
+   . RL.RowToList mths mthsL
+  => Newtype t (JSObject mths)
+  => HFoldlWithIndex (MkFFIStep t) {} (Proxy mthsL) { | rout }
+  => Proxy t
+  -> { | rout }
+mkNewtypedFFI _ = hfoldlWithIndex (MkFFIStep :: MkFFIStep t) {} (Proxy :: Proxy mthsL)
+
 newtype Person = Person
   ( JSObject
       ( firstName :: EffectProp String
@@ -75,15 +84,6 @@ newtype Person = Person
   )
 
 derive instance Newtype Person _
-
-mkNewtypedFFI
-  :: forall mths mthsL rout t
-   . RL.RowToList mths mthsL
-  => Newtype t (JSObject mths)
-  => HFoldlWithIndex (MkFFIStep t) {} (Proxy mthsL) { | rout }
-  => Proxy t
-  -> { | rout }
-mkNewtypedFFI _ = hfoldlWithIndex (MkFFIStep :: MkFFIStep t) {} (Proxy :: Proxy mthsL)
 
 _Person ::
   { firstName :: Person -> Effect String

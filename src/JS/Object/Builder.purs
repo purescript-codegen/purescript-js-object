@@ -83,3 +83,6 @@ buildPerson = mkBuild fakeConstructor
 
 mkPerson :: String -> String -> Person
 mkPerson firstName lastName = buildPerson $ setFirstName firstName <> setLastName lastName
+
+-- TODO: We can add `freeze` method here which would be a `build` version which
+-- turns `JSObject` into a `Record` by changing every `Prop` into an attr.

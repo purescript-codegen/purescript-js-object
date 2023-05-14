@@ -1,3 +1,27 @@
+export function runEffectConstr1Impl (fn, arg) {
+  return new fn(arg);
+};
+
+export function runEffectConstr2Impl (fn, arg1, arg2) {
+  return new fn(arg1, arg2);
+};
+
+export function runEffectConstr3Impl (fn, arg1, arg2, arg3) {
+  return new fn(arg1, arg2, arg3);
+};
+
+export function runEffectConstr4Impl (fn, arg1, arg2, arg3, arg4) {
+  return new fn(arg1, arg2, arg3, arg4);
+};
+
+export function runEffectConstr5Impl (fn, arg1, arg2, arg3, arg4, arg5) {
+  return new fn(arg1, arg2, arg3, arg4, arg5);
+};
+
+export function runEffectConstr6Impl (fn, arg1, arg2, arg3, arg4, arg5, arg6) {
+  return new fn(arg1, arg2, arg3, arg4, arg5, arg6);
+};
+
 export function unsafeRunEffectProp (mth, obj) {
   return obj[mth];
 };

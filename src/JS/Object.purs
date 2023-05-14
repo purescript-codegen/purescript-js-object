@@ -18,6 +18,69 @@ import Effect.Uncurried (EffectFn2, EffectFn3, EffectFn4, EffectFn5, EffectFn6, 
 import Prim.Row (class Cons) as Row
 import Type.Prelude (Proxy)
 
+foreign import data EffectConstr1 :: Type -> Row Type -> Type
+
+foreign import runEffectConstr1Impl :: forall a obj. EffectFn2 (EffectConstr1 a obj) a (JSObject obj)
+
+runEffectConstr1 :: forall a obj. EffectConstr1 a obj -> a -> Effect (JSObject obj)
+runEffectConstr1 = runEffectFn2 runEffectConstr1Impl
+
+foreign import data EffectConstr2 :: Type -> Type -> Row Type -> Type
+
+foreign import runEffectConstr2Impl :: forall a1 a2 obj. EffectFn3 (EffectConstr2 a1 a2 obj) a1 a2 (JSObject obj)
+
+runEffectConstr2 :: forall a1 a2 obj. EffectConstr2 a1 a2 obj -> a1 -> a2 -> Effect (JSObject obj)
+runEffectConstr2 = runEffectFn3 runEffectConstr2Impl
+
+foreign import data EffectConstr3 :: Type -> Type -> Type -> Row Type -> Type
+
+foreign import runEffectConstr3Impl :: forall a1 a2 a3 obj. EffectFn4 (EffectConstr3 a1 a2 a3 obj) a1 a2 a3 (JSObject obj)
+
+runEffectConstr3 :: forall a1 a2 a3 obj. EffectConstr3 a1 a2 a3 obj -> a1 -> a2 -> a3 -> Effect (JSObject obj)
+runEffectConstr3 = runEffectFn4 runEffectConstr3Impl
+
+foreign import data EffectConstr4 :: Type -> Type -> Type -> Type -> Row Type -> Type
+
+foreign import runEffectConstr4Impl :: forall a1 a2 a3 a4 obj. EffectFn5 (EffectConstr4 a1 a2 a3 a4 obj) a1 a2 a3 a4 (JSObject obj)
+
+runEffectConstr4 :: forall a1 a2 a3 a4 obj. EffectConstr4 a1 a2 a3 a4 obj -> a1 -> a2 -> a3 -> a4 -> Effect (JSObject obj)
+runEffectConstr4 = runEffectFn5 runEffectConstr4Impl
+
+foreign import data EffectConstr5 :: Type -> Type -> Type -> Type -> Type -> Row Type -> Type
+
+foreign import runEffectConstr5Impl :: forall a1 a2 a3 a4 a5 obj. EffectFn6 (EffectConstr5 a1 a2 a3 a4 a5 obj) a1 a2 a3 a4 a5 (JSObject obj)
+
+runEffectConstr5 :: forall a1 a2 a3 a4 a5 obj. EffectConstr5 a1 a2 a3 a4 a5 obj -> a1 -> a2 -> a3 -> a4 -> a5 -> Effect (JSObject obj)
+runEffectConstr5 = runEffectFn6 runEffectConstr5Impl
+
+foreign import data EffectConstr6 :: Type -> Type -> Type -> Type -> Type -> Type -> Row Type -> Type
+
+foreign import runEffectConstr6Impl :: forall a1 a2 a3 a4 a5 a6 obj. EffectFn7 (EffectConstr6 a1 a2 a3 a4 a5 a6 obj) a1 a2 a3 a4 a5 a6 (JSObject obj)
+
+runEffectConstr6 :: forall a1 a2 a3 a4 a5 a6 obj. EffectConstr6 a1 a2 a3 a4 a5 a6 obj -> a1 -> a2 -> a3 -> a4 -> a5 -> a6 -> Effect (JSObject obj)
+runEffectConstr6 = runEffectFn7 runEffectConstr6Impl
+
+class ConstrFn (constr :: Type) constrFn | constr -> constrFn where
+  new :: constr -> constrFn
+
+instance ConstrFn (EffectConstr1 a obj) (a -> Effect (JSObject obj)) where
+  new = runEffectConstr1
+
+instance ConstrFn (EffectConstr2 a1 a2 obj) (a1 -> a2 -> Effect (JSObject obj)) where
+  new = runEffectConstr2
+
+instance ConstrFn (EffectConstr3 a1 a2 a3 obj) (a1 -> a2 -> a3 -> Effect (JSObject obj)) where
+  new = runEffectConstr3
+
+instance ConstrFn (EffectConstr4 a1 a2 a3 a4 obj) (a1 -> a2 -> a3 -> a4 -> Effect (JSObject obj)) where
+  new = runEffectConstr4
+
+instance ConstrFn (EffectConstr5 a1 a2 a3 a4 a5 obj) (a1 -> a2 -> a3 -> a4 -> a5 -> Effect (JSObject obj)) where
+  new = runEffectConstr5
+
+instance ConstrFn (EffectConstr6 a1 a2 a3 a4 a5 a6 obj) (a1 -> a2 -> a3 -> a4 -> a5 -> a6 -> Effect (JSObject obj)) where
+  new = runEffectConstr6
+
 -- | This is predefined representation for JS object which could be
 -- | indexed with methods and used with functions from this modules.
 foreign import data JSObject :: Row Type -> Type
