@@ -1,4 +1,4 @@
-export caseNullableImpl = function(v, handle, cont, unit) {
+export const caseNullableImpl = function(v, handle, cont, unit) {
   if(v === null) {
     return handle(v);
   }
