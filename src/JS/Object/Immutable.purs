@@ -1,4 +1,4 @@
-module JS.Oaject.Immutable where
+module JS.Object.Immutable where
 
 import Prelude
 
