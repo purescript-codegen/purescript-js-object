@@ -13,4 +13,3 @@ export const counter = (function () {
   };
 })();
 
-export { counter };
